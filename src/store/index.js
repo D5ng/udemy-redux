@@ -1,14 +1,8 @@
-import { createStore } from "redux"
-import { createSlice } from "@reduxjs/toolkit"
-
-export const INCREMENT = "INCREMENT"
-export const INCREASE = "INCREASE"
-export const DECREMENT = "DECREMENT"
-export const TOGGLE = "TOGGLE"
+import { createSlice, configureStore } from "@reduxjs/toolkit"
 
 const initialState = { counter: 0, showCounter: true }
 
-createSlice({
+const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
@@ -16,7 +10,7 @@ createSlice({
       state.counter++
     },
     increase(state, action) {
-      state.counter = state.counter + action.amount
+      state.counter = state.counter + action.payload
     },
     decrement(state) {
       state.counter--
@@ -27,37 +21,40 @@ createSlice({
   },
 })
 
-const counterReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case INCREMENT:
-      return {
-        ...state,
-        counter: state.counter + 1,
-      }
+// const counterReducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case INCREMENT:
+//       return {
+//         ...state,
+//         counter: state.counter + 1,
+//       }
 
-    case INCREASE:
-      return {
-        ...state,
-        counter: state.counter + action.amount,
-      }
+//     case INCREASE:
+//       return {
+//         ...state,
+//         counter: state.counter + action.amount,
+//       }
 
-    case DECREMENT:
-      return {
-        ...state,
-        counter: state.counter - 1,
-      }
+//     case DECREMENT:
+//       return {
+//         ...state,
+//         counter: state.counter - 1,
+//       }
 
-    case TOGGLE:
-      return {
-        ...state,
-        showCounter: !state.showCounter,
-      }
+//     case TOGGLE:
+//       return {
+//         ...state,
+//         showCounter: !state.showCounter,
+//       }
 
-    default:
-      return state
-  }
-}
+//     default:
+//       return state
+//   }
+// }
 
-const store = createStore(counterReducer)
+const store = configureStore({
+  reducer: counterSlice.reducer,
+})
 
+export const counterActions = counterSlice.actions
 export default store
