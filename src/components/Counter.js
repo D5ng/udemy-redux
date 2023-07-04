@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import classes from "./Counter.module.css"
-import { counterActions } from "../store"
+import { counterActions } from "../store/counter"
 
 const Counter = () => {
   const dispatch = useDispatch()
-  const { counter, showCounter } = useSelector((state) => state)
+  const { counter, showCounter } = useSelector((state) => state.counter)
 
   const incrementHandler = () => dispatch(counterActions.increment())
   const increaseHandler = () => dispatch(counterActions.increase(5))
